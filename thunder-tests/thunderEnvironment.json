@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "5f6ec3f7-67fa-44bb-8e51-5e6c62251ee2",
+    "name": "Character",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-06-11T11:34:45.866Z",
+    "modified": "2023-06-11T11:34:45.866Z",
+    "data": []
+  },
+  {
+    "_id": "31f3b8fb-e73b-48f1-8a8c-1946947b2930",
+    "name": "(Local Env)",
+    "default": false,
+    "global": true,
+    "local": true,
+    "sortNum": -1,
+    "created": "2023-06-11T11:34:55.171Z",
+    "modified": "2023-06-11T11:34:55.171Z",
+    "data": []
+  }
+]

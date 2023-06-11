@@ -1,0 +1,6 @@
+{
+  "appTitle": "fleetime_genshin",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}

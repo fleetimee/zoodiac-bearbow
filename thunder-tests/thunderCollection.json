@@ -1,0 +1,66 @@
+[
+  {
+    "_id": "212f07a5-a53c-4313-93d2-034b21956529",
+    "colName": "Genshin API",
+    "created": "2023-06-11T09:46:42.537Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "8c5bc060-5e79-4a22-b662-6dbbc91ef4a5",
+        "name": "Character",
+        "containerId": "",
+        "created": "2023-06-11T09:47:07.814Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "535a979b-5f3a-4c51-9e3b-35c94094e06c",
+        "name": "Characters Image",
+        "containerId": "8c5bc060-5e79-4a22-b662-6dbbc91ef4a5",
+        "created": "2023-06-11T09:50:09.678Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "8e49495e-e328-40c9-b7f2-a07fb6121a91",
+        "name": "Nation",
+        "containerId": "",
+        "created": "2023-06-11T11:39:58.753Z",
+        "sortNum": 30000
+      },
+      {
+        "_id": "cbbd70b0-f806-447b-8af4-f49715ef1276",
+        "name": "Artifact",
+        "containerId": "",
+        "created": "2023-06-11T11:43:04.225Z",
+        "sortNum": 40000
+      },
+      {
+        "_id": "a8dc591b-4b9e-4400-9d33-7c1c50aeee6e",
+        "name": "Artifact Image",
+        "containerId": "cbbd70b0-f806-447b-8af4-f49715ef1276",
+        "created": "2023-06-11T11:44:17.729Z",
+        "sortNum": 50000
+      },
+      {
+        "_id": "2b190c0e-8200-4856-b67d-c28a7da542c0",
+        "name": "Boss",
+        "containerId": "",
+        "created": "2023-06-11T12:38:38.875Z",
+        "sortNum": 60000
+      },
+      {
+        "_id": "70532927-8a7b-489e-98af-679ffe278b37",
+        "name": "Consumeables",
+        "containerId": "",
+        "created": "2023-06-11T12:42:27.714Z",
+        "sortNum": 70000
+      },
+      {
+        "_id": "9101a9d2-357a-445f-8fc3-8e954785d664",
+        "name": "Domains",
+        "containerId": "",
+        "created": "2023-06-11T12:54:51.624Z",
+        "sortNum": 90000
+      }
+    ]
+  }
+]
