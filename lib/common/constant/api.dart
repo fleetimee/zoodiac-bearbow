@@ -1,4 +1,4 @@
-enum EndPoint { characters, weapons }
+enum EndPoint { characters, weapons, error }
 
 class GenshinConst {
   static const baseUrl = 'https://api.genshin.dev/';
@@ -10,7 +10,7 @@ class GenshinConst {
       case EndPoint.weapons:
         return '${baseUrl}weapons/';
       default:
-        throw ArgumentError('Invalid endPoint');
+        throw ArgumentError('Invalid EndPoint');
     }
   }
 }
