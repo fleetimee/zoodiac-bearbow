@@ -1,3 +1,4 @@
+import 'package:fleetime_genshin/ui/character/character_details_page.dart';
 import 'package:fleetime_genshin/ui/character/character_home_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,6 +17,12 @@ final routerSettings = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const GenshinCharacterHomePage(),
-    )
+    ),
+    GoRoute(
+      path: '/characters/:characterName',
+      builder: (context, state) => GenshinCharacterDetailPage(
+        characterName: state.pathParameters['characterName']!,
+      ),
+    ),
   ],
 );

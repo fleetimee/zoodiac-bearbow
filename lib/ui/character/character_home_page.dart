@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fleetime_genshin/cubit/character/character_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 class GenshinCharacterHomePage extends StatefulWidget {
   const GenshinCharacterHomePage({super.key});
@@ -66,7 +68,19 @@ class _CharacterCard extends StatelessWidget {
   final List<String> characterList;
 
   String iconLink(String characterName) {
-    return 'https://api.genshin.dev/characters/${characterName.toLowerCase()}/icon-big';
+    // if path contains traveler then go with icon-big-lumine instead
+    switch (characterName) {
+      case 'traveler-anemo':
+        return 'https://api.genshin.dev/characters/traveler-anemo/icon-big-lumine';
+      case 'traveler-geo':
+        return 'https://api.genshin.dev/characters/traveler-geo/icon-big-aether';
+      case 'traveler-electro':
+        return 'https://api.genshin.dev/characters/traveler-electro/icon-big-lumine';
+      case 'traveler-dendro':
+        return 'https://api.genshin.dev/characters/traveler-dendro/icon-big-aether';
+      default:
+        return 'https://api.genshin.dev/characters/$characterName/icon-big';
+    }
   }
 
   List<String> formattedCharacterList(List<String> characterList) {
@@ -77,46 +91,56 @@ class _CharacterCard extends StatelessWidget {
     return formattedCharacterList;
   }
 
-  Widget _buildCharacterCard(
-      String characterName, ImageProvider imageProvider, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          height: 100,
-          width: 200,
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(8),
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.black.withOpacity(0.5)
-                : Colors.white.withOpacity(0.5),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white.withOpacity(0.2)
-                    : Colors.black.withOpacity(0.2),
-                blurRadius: 10,
+  Widget _buildCharacterCard(String characterName, ImageProvider imageProvider,
+      BuildContext context, int index) {
+    return InkWell(
+      onTap: () {
+        final routePath =
+            Uri(path: '/characters/${characterList[index]}').toString();
+
+        context.push(Uri(path: routePath).toString());
+
+        Logger().d('Route Path: $routePath');
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 100,
+            width: 200,
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
               ),
-            ],
+              borderRadius: BorderRadius.circular(8),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.5),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white.withOpacity(0.2)
+                      : Colors.black.withOpacity(0.2),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          characterName,
-          style: context.textStyles.titleSmall,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            characterName,
+            style: context.textStyles.titleSmall,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 
@@ -203,6 +227,7 @@ class _CharacterCard extends StatelessWidget {
                   .toUpperCase(),
               imageProvider,
               context,
+              index,
             );
           },
         );

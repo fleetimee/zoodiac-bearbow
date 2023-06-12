@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
-class GenshinCharacterDetailPage extends StatefulWidget {
-  const GenshinCharacterDetailPage({super.key});
+class GenshinCharacterDetailPage extends StatelessWidget {
+  const GenshinCharacterDetailPage({
+    super.key,
+    required this.characterName,
+  });
 
-  @override
-  State<GenshinCharacterDetailPage> createState() =>
-      _GenshinCharacterDetailPageState();
-}
+  final String characterName;
 
-class _GenshinCharacterDetailPageState
-    extends State<GenshinCharacterDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    Logger().d('Character Name: $characterName');
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(characterName),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Center(
+          child: Text('Character Detail'),
+        ),
+      ),
+    );
   }
 }
