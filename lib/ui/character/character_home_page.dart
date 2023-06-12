@@ -24,30 +24,33 @@ class _GenshinCharacterHomePageState extends State<GenshinCharacterHomePage> {
       appBar: AppBar(
         title: const Text('Character'),
       ),
-      body: Center(
-        //----------------------------------
-        // Get Character List
-        //----------------------------------
-        child: BlocBuilder<CharacterCubit, CharacterState>(
-          builder: (context, state) {
-            return state.when(
-              initial: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              loaded: (characterList) {
-                //----------------------------------
-                // Fetch Character Icon
-                //----------------------------------
-                return _CharacterCard(characterList);
-              },
-              error: (message) => Center(
-                child: Text(message),
-              ),
-            );
-          },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          //----------------------------------
+          // Get Character List
+          //----------------------------------
+          child: BlocBuilder<CharacterCubit, CharacterState>(
+            builder: (context, state) {
+              return state.when(
+                initial: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                loaded: (characterList) {
+                  //----------------------------------
+                  // Fetch Character Icon
+                  //----------------------------------
+                  return _CharacterCard(characterList);
+                },
+                error: (message) => Center(
+                  child: Text(message),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -65,8 +68,16 @@ class _CharacterCard extends StatelessWidget {
     return 'https://api.genshin.dev/characters/${characterName.toLowerCase()}/icon-big';
   }
 
+  List<String> formattedCharacterList(List<String> characterList) {
+    final formattedCharacterList = <String>[];
+    for (final character in characterList) {
+      formattedCharacterList.add(character.replaceAll(' ', '-'));
+    }
+    return formattedCharacterList;
+  }
+
   Widget _buildCharacterCard(
-      String characterName, ImageProvider imageProvider) {
+      String characterName, ImageProvider imageProvider, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,8 +92,21 @@ class _CharacterCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(8),
-            color: Colors.blue,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black.withOpacity(0.5)
+                : Colors.white.withOpacity(0.5),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+              ),
+            ],
           ),
+        ),
+        const SizedBox(
+          height: 8,
         ),
         Text(
           characterName,
@@ -91,12 +115,14 @@ class _CharacterCard extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
   }
 
-  Widget _buildErrorCard(String characterName) {
+  Widget _buildErrorCard(String characterName, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,9 +133,22 @@ class _CharacterCard extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Colors.blue,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black.withOpacity(0.5)
+                : Colors.white.withOpacity(0.5),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Icon(Icons.error),
+        ),
+        const SizedBox(
+          height: 8,
         ),
         Text(
           characterName,
@@ -118,6 +157,8 @@ class _CharacterCard extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -137,13 +178,19 @@ class _CharacterCard extends StatelessWidget {
           errorWidget: (context, url, error) {
             return _buildErrorCard(
               characterList[index],
+              context,
             );
           },
           imageUrl: iconLink(characterList[index]),
           imageBuilder: (context, imageProvider) {
             return _buildCharacterCard(
-              characterList[index],
+              formattedCharacterList(
+                characterList,
+              )[index]
+                  .replaceAll('-', ' ')
+                  .toUpperCase(),
               imageProvider,
+              context,
             );
           },
         );

@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         ],
         theme: GenshinThemeData.lightMode,
         darkTheme: GenshinThemeData.darkMode,
+        themeMode: ThemeMode.system,
         onGenerateTitle: (BuildContext context) =>
             AppLocalizations.of(context)!.appTitle,
       ),
