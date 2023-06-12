@@ -68,7 +68,6 @@ class _CharacterCard extends StatelessWidget {
   final List<String> characterList;
 
   String iconLink(String characterName) {
-    // if path contains traveler then go with icon-big-lumine instead
     switch (characterName) {
       case 'traveler-anemo':
         return 'https://api.genshin.dev/characters/traveler-anemo/icon-big-lumine';
