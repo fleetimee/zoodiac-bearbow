@@ -1,3 +1,4 @@
+import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fleetime_genshin/cubit/character/character_cubit.dart';
 import 'package:flutter/material.dart';
@@ -110,10 +111,7 @@ class _CharacterCard extends StatelessWidget {
         ),
         Text(
           characterName,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: context.textStyles.titleSmall,
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -132,6 +130,10 @@ class _CharacterCard extends StatelessWidget {
           width: 200,
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage('assets/images/icons/question_mark.jpg'),
+              fit: BoxFit.cover,
+            ),
             borderRadius: BorderRadius.circular(8),
             color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.black.withOpacity(0.5)
@@ -145,17 +147,13 @@ class _CharacterCard extends StatelessWidget {
               ),
             ],
           ),
-          child: const Icon(Icons.error),
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
           characterName,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: context.textStyles.titleSmall,
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -175,9 +173,23 @@ class _CharacterCard extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return CachedNetworkImage(
+          placeholder: (context, url) {
+            return _buildErrorCard(
+              formattedCharacterList(
+                characterList,
+              )[index]
+                  .replaceAll('-', ' ')
+                  .toUpperCase(),
+              context,
+            );
+          },
           errorWidget: (context, url, error) {
             return _buildErrorCard(
-              characterList[index],
+              formattedCharacterList(
+                characterList,
+              )[index]
+                  .replaceAll('-', ' ')
+                  .toUpperCase(),
               context,
             );
           },
