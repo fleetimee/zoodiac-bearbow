@@ -68,4 +68,19 @@ class CharacterDatasource {
       return Left(e);
     }
   }
+
+  Future<Either<Exception, Character>> getCharacterCard(String name) async {
+    try {
+      final response = await DioSingleton.instance.get(
+          GenshinConst.getEndpointUrl(endpoint) +
+              name +
+              CharacterImageType.card.toUrl());
+      final data = response.data;
+
+      return Right(data);
+    } on Exception catch (e) {
+      Logger().e('CharacterDatasource.getCharacterCard: $e');
+      return Left(e);
+    }
+  }
 }

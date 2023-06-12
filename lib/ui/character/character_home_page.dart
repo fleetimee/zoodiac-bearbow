@@ -25,7 +25,10 @@ class _GenshinCharacterHomePageState extends State<GenshinCharacterHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Character'),
+        title: Text(
+          'Character',
+          style: context.textStyles.headlineMedium,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -67,6 +70,9 @@ class _CharacterCard extends StatelessWidget {
 
   final List<String> characterList;
 
+  //----------------------------------
+  // Link for Character Icon
+  //----------------------------------
   String iconLink(String characterName) {
     switch (characterName) {
       case 'traveler-anemo':
@@ -82,6 +88,9 @@ class _CharacterCard extends StatelessWidget {
     }
   }
 
+  //----------------------------------
+  // Format the api link
+  //----------------------------------
   List<String> formattedCharacterList(List<String> characterList) {
     final formattedCharacterList = <String>[];
     for (final character in characterList) {
@@ -193,6 +202,7 @@ class _CharacterCard extends StatelessWidget {
         crossAxisCount: 3,
         childAspectRatio: 0.8,
         mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
       ),
       itemBuilder: (context, index) {
         return CachedNetworkImage(

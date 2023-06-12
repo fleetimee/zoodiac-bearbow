@@ -23,14 +23,14 @@ class CharacterDetailCubit extends Cubit<CharacterDetailState> {
     );
   }
 
-  // Future<void> getCharacterIcon(String characterId) async {
-  //   emit(const CharacterDetailState.loading());
-  //   final result = await _characterDatasource.getCharacterIcon(characterId);
-  //   result.fold(
-  //     (l) => emit(CharacterDetailState.error(
-  //       message: l.toString(),
-  //     )),
-  //     (r) => emit(CharacterDetailState.loaded(character: r)),
-  //   );
-  // }
+  Future<void> getCharacterDetailCard(String characterId) async {
+    emit(const CharacterDetailState.loading());
+    final result = await _characterDatasource.getCharacterCard(characterId);
+    result.fold(
+      (l) => emit(CharacterDetailState.error(
+        message: l.toString(),
+      )),
+      (r) => emit(CharacterDetailState.loaded(character: r)),
+    );
+  }
 }

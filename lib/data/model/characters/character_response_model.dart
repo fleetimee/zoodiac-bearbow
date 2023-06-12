@@ -11,7 +11,7 @@ class Character {
   String? affiliation;
   int? rarity;
   String? constellation;
-  DateTime? birthday;
+  String? birthday;
   String? description;
   List<SkillTalent>? skillTalents;
   List<Constellation>? passiveTalents;
@@ -51,8 +51,7 @@ class Character {
         affiliation: json["affiliation"],
         rarity: json["rarity"],
         constellation: json["constellation"],
-        birthday:
-            json["birthday"] == null ? null : DateTime.parse(json["birthday"]),
+        birthday: json["birthday"],
         description: json["description"],
         skillTalents: json["skillTalents"] == null
             ? []
@@ -79,8 +78,7 @@ class Character {
         "affiliation": affiliation,
         "rarity": rarity,
         "constellation": constellation,
-        "birthday":
-            "${birthday!.year.toString().padLeft(4, '0')}-${birthday!.month.toString().padLeft(2, '0')}-${birthday!.day.toString().padLeft(2, '0')}",
+        "birthday": birthday,
         "description": description,
         "skillTalents": skillTalents == null
             ? []
