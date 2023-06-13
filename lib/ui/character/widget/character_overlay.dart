@@ -54,7 +54,7 @@ class SuperheroCard extends StatelessWidget {
               child: Transform.scale(
                 scale: lerpDouble(1, .4, factorChange!),
                 child: Hero(
-                  tag: 'yeh',
+                  tag: 'heroOne$characterName',
                   child: CachedNetworkImage(
                     imageUrl: GenshinConst.getPortraitUrl(characterName),
                     fit: BoxFit.contain,
@@ -75,7 +75,7 @@ class SuperheroCard extends StatelessWidget {
                 //----------------------------------
                 FittedBox(
                   child: Hero(
-                    tag: 'name',
+                    tag: 'hero2$characterName',
                     child: Text(
                       superhero.name!.toUpperCase(),
                       style:
@@ -103,7 +103,7 @@ class SuperheroCard extends StatelessWidget {
                 // Superhero Description
                 //----------------------------------
                 Hero(
-                  tag: 'description',
+                  tag: 'hero3$characterName',
                   child: Text(
                     superhero.description!,
                     style: Theme.of(context).textTheme.bodyMedium,

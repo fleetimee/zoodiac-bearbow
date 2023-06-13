@@ -1,6 +1,15 @@
 enum EndPoint { characters, weapons, error }
 
-enum CharacterImageType { icon, iconBig, card, portrait, side, full, error }
+enum CharacterImageType {
+  icon,
+  iconBig,
+  card,
+  portrait,
+  side,
+  full,
+  error,
+  gachaSplash
+}
 
 class GenshinConst {
   static const baseUrl = 'https://api.genshin.dev/';
@@ -26,8 +35,8 @@ class GenshinConst {
         return '${getEndpointUrl(EndPoint.characters)}$name/card';
       case CharacterImageType.portrait:
         return '${getEndpointUrl(EndPoint.characters)}$name/portrait';
-      case CharacterImageType.side:
-        return '${getEndpointUrl(EndPoint.characters)}$name/${CharacterImageType.side}';
+      case CharacterImageType.gachaSplash:
+        return '${getEndpointUrl(EndPoint.characters)}$name/gacha-splash';
       case CharacterImageType.full:
         return '${getEndpointUrl(EndPoint.characters)}$name/${CharacterImageType.full}';
       default:
@@ -40,4 +49,7 @@ class GenshinConst {
 
   static String getPortraitUrl(String name) =>
       getImageUrl(CharacterImageType.portrait, name);
+
+  static String getGachaSplashUrl(String name) =>
+      getImageUrl(CharacterImageType.gachaSplash, name);
 }

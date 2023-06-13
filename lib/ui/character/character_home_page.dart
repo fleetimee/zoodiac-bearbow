@@ -200,7 +200,7 @@ class _CharacterCard extends StatelessWidget {
       itemCount: characterList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.75,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
       ),

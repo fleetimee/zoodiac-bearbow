@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fleetime_genshin/cubit/character_detail/character_detail_cubit.dart';
 import 'package:fleetime_genshin/data/model/characters/character_response_model.dart';
+import 'package:fleetime_genshin/ui/character/character_more_information_page.dart';
 import 'package:fleetime_genshin/ui/character/widget/character_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,6 +141,24 @@ class _CharacterDetail extends StatelessWidget {
   final bool isScrolling;
   final PageController pageController;
 
+  void _openDetail(
+      BuildContext context, Character superhero, String characterName) {
+    Navigator.push(
+      context,
+      PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return FadeTransition(
+            opacity: animation,
+            child: GenshinCharacterMoreInformationPage(
+              superhero: superhero,
+              characterName: characterName,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const angleRotate = -pi * .5;
@@ -185,7 +204,13 @@ class _CharacterDetail extends StatelessWidget {
           itemCount: 1,
           controller: pageController,
           itemBuilder: (context, index) {
-            return const InkWell();
+            return InkWell(
+              onTap: () => _openDetail(
+                context,
+                character,
+                characterName,
+              ),
+            );
           },
         )
       ],
