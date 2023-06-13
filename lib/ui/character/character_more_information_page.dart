@@ -140,11 +140,118 @@ class _GenshinCharacterMoreInformationPageState
                       imageUrl: GenshinConst.getPortraitUrl(
                         widget.characterName,
                       ),
-                      height: size.height * .55,
-                      width: size.width,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //--------------------------
+                      // Superhero name
+                      //--------------------------
+                      Align(
+                        heightFactor: .7,
+                        alignment: Alignment.bottomLeft,
+                        child: FittedBox(
+                          child: Hero(
+                            tag: widget.superhero.name!,
+                            child: AnimatedDefaultTextStyle(
+                              duration: kThemeAnimationDuration,
+                              style: textTheme.displayMedium!.copyWith(
+                                color: _changeToBlack
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                              child: Text(
+                                widget.superhero.name!
+                                    .replaceAll(' ', '\n')
+                                    .toLowerCase(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //---------------------------------------
+                          // Superhero Secret Identity Name
+                          //---------------------------------------
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Hero(
+                                tag: widget.superhero.name!,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: AnimatedDefaultTextStyle(
+                                    duration: kThemeAnimationDuration,
+                                    style: textTheme.headlineSmall!.copyWith(
+                                      color: _changeToBlack
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                    child: Text(
+                                      widget.superhero.name!.toLowerCase(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(height: 30),
+                      //---------------------------------------
+                      // Animated Superhero Description
+                      //---------------------------------------
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.elasticOut,
+                        transform: Matrix4.translationValues(
+                          0,
+                          _enableInfoItems ? 0 : 50,
+                          0,
+                        ),
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: _enableInfoItems ? 1.0 : 0.0,
+                          child: Text(
+                            widget.superhero.description!,
+                            maxLines: 4,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      const Divider(height: 30),
+                      //----------------------------------
+                      // Section Movies Title
+                      //----------------------------------
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.elasticOut,
+                        transform: Matrix4.translationValues(
+                          0,
+                          _enableInfoItems ? 0 : 50,
+                          0,
+                        ),
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: _enableInfoItems ? 1.0 : 0.0,
+                          child: Text(
+                            'movies',
+                            style: textTheme.headlineSmall!
+                                .copyWith(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
